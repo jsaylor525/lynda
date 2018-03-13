@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestingDelgates
+namespace TestingDelegates
 {
     [TestClass]
     public class UnitTest1
