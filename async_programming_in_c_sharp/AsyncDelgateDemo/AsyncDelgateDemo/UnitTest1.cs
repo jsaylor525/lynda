@@ -18,7 +18,7 @@ namespace TestingDelegates
         [TestMethod]
         public void TestMethod1()
         {
-            Debug.WriteLine("TestMethod1");
+            Debug.WriteLine("TestMethod1-begin");
             Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId.ToString());
 
             DoWorkDelegate m = new DoWorkDelegate(DoWork);
@@ -27,7 +27,10 @@ namespace TestingDelegates
             IAsyncResult ar = m.BeginInvoke(callback, m);
             // do more
 
-            System.Threading.Thread.Sleep(400);
+            ar.AsyncWaitHandle.WaitOne();
+
+            Debug.WriteLine("TestMethod1-end");
+            Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId.ToString());
         }
 
         private static void TheCallback(IAsyncResult ar)
