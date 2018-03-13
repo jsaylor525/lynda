@@ -70,10 +70,20 @@ namespace ClassicWindowsForms
         {
             // danger: do not modify the UI from this thread!
 
+            // this.Text = "This is a test!";
+
+            var targetMethod = new Action(UpdateUI);
+            this.Invoke(targetMethod);
+
             using (var downloader = new System.Net.WebClient())
             {
                 var page = downloader.DownloadString(txtURL.Text);
             }
+        }
+
+        private void UpdateUI()
+        {
+            this.Text = "This is a test!";
         }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
