@@ -9,7 +9,7 @@ namespace TestingDelegates
     {
         private void DoWork()
         {
-            Debug.WriteLine("Hello World");
+            Debug.WriteLine("DoWork");
             Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId.ToString());
         }
 
@@ -18,10 +18,24 @@ namespace TestingDelegates
         [TestMethod]
         public void TestMethod1()
         {
+            Debug.WriteLine("TestMethod1");
             Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId.ToString());
+
             DoWorkDelegate m = new DoWorkDelegate(DoWork);
-            IAsyncResult ar = m.BeginInvoke(null, null);
+
+            AsyncCallback callback = new AsyncCallback(TheCallback);
+            IAsyncResult ar = m.BeginInvoke(callback, m);
             // do more
+
+            System.Threading.Thread.Sleep(400);
+        }
+
+        private static void TheCallback(IAsyncResult ar)
+        {
+            Debug.WriteLine("TheCallback");
+            Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId.ToString());
+
+            var m = ar.AsyncState as DoWorkDelegate;
             m.EndInvoke(ar);
         }
     }
