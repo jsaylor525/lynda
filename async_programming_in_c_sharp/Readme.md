@@ -21,6 +21,10 @@ Visual Studio 2017 Community.
 
 Introducing the System.Threading library to create and run threads. Creating Solution Threads to demo library.
 
-* What Dangerous
+**What Dangerous**
 * All review from Parallel Programming in college...
 * Shared memory issues
+* Deadlock situations
+* "Thread Safe" types can help...
+
+Creating multiple threads
